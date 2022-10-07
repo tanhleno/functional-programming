@@ -1,11 +1,13 @@
 module ListaInt where
 
-data ListaInt = Empty | ListaInt Int (ListaInt)
+data ListaInt = Empty | ListaInt Int ListaInt
 
-instance Show (ListaInt) where
-    show Empty              = "[]"
-    show (ListaInt x Empty) = "[" ++ (show x) ++ "]"
-    show (ListaInt x y)     = "[" ++ (show x) ++ ", " ++ (tail $ show y) 
+instance Show ListaInt where
+    show x = "[" ++ show' x ++ "]"
+
+show' Empty              = ""
+show' (ListaInt x Empty) = show x
+show' (ListaInt x y)     = show x ++ "," ++ show' y
 
 ltail :: ListaInt -> ListaInt
 ltail Empty          = error "List is empty."
